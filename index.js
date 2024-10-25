@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import express from "express";
 import { router as blogRouter } from "./routes/blog.js";
 import { Blog } from "./models/blog.js";
+import { router as userRouter } from "./routes/user.js";
+import { router as authRouter } from "./routes/auth.js";
 
 mongoose
   .connect("mongodb://localhost/bloggy-db")
@@ -14,6 +16,8 @@ app.use(express.json());
 
 //routes
 app.use("/blog", blogRouter);
+app.use("/signin", userRouter);
+app.use("/auth", authRouter);
 
 async function addBlog() {
   const blogData = [

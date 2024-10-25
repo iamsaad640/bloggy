@@ -1,9 +1,10 @@
 import express from "express";
 import { Blog } from "../models/blog.js";
+import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const result = await Blog.find().sort({ createdAt: 1 }).select();
 
   if (!result) return res.status(404).send(new Error("not found"));
