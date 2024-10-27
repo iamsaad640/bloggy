@@ -4,6 +4,7 @@ import { router as blogRouter } from "./routes/blog.js";
 import { Blog } from "./models/blog.js";
 import { router as userRouter } from "./routes/user.js";
 import { router as authRouter } from "./routes/auth.js";
+import error from "./middleware/error.js";
 
 mongoose
   .connect("mongodb://localhost/bloggy-db")
@@ -18,6 +19,9 @@ app.use(express.json());
 app.use("/blog", blogRouter);
 app.use("/signin", userRouter);
 app.use("/auth", authRouter);
+
+// handling error by using middleware at the end of pipeline
+app.use(error);
 
 async function addBlog() {
   const blogData = [
